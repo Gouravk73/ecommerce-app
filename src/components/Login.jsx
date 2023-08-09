@@ -10,7 +10,7 @@ const Login = () => {
         console.log("email",email,'password',password);
     }
   return (
-        <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100" style={{backgroundColor:'#F6F4EB'}} >
+        <div className="container-fluid d-flex flex-column justify-content-center   vh-100" style={{backgroundColor:'#F6F4EB'}} >
             <div style={{border:'1px solid black',borderRadius:'10%', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.5)',padding:'2rem ',backgroundColor:'white'}}>
             <form action="" onSubmit={submitHandler}>
             <h6>LOGIN TO YOUR ACCOUNT</h6>
