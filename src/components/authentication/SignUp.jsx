@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react'
 import{FiAlertCircle} from 'react-icons/fi'
-import { SignUpUser } from '../api/signUp'
+import { SignUpUser } from '../../api/authentication/signUp'
+import {Link,useNavigate } from 'react-router-dom'
+
 const SignUp = () => {
     const inputEmail =useRef(null)
+    const navigate=useNavigate();
     const inputPassword =useRef(null)
     const inputConfirmPassword =useRef(null)
     const[isLoading,setIsLoading] = useState(false);
@@ -29,6 +32,7 @@ const SignUp = () => {
 
         try{
             const res=await SignUpUser(email,password)
+            navigate('/login')
             console.log(res)
         } catch(e){
             setEmailError(true);
@@ -49,7 +53,7 @@ const SignUp = () => {
         <div className="container d-flex flex-column justify-content-center  vh-100" style={{maxWidth:'500px'}}>
             <div style={{borderRadius:'1rem', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.5)',padding:'2rem '}}>
                 <form action="" onSubmit={submitHandler}>
-                    <h5>Sing Up </h5>
+                    <h5>Sign Up </h5>
                     {(emailError||passwordError)&&(
                         <div style={{color:'#FF0000',fontSize:'1rem',padding:'5px 0' }}>
                             <FiAlertCircle size={'1.2rem'}/> <span >{errorText}</span>
@@ -102,6 +106,10 @@ const SignUp = () => {
                                 </button>)}
 
                 </form>
+                <div className='d-flex justify-content-center' style={{margin:'2rem 0  0 0'}}>
+            <Link to={'/login'} className='link-secondary link-underline-opacity-0 '> Already have an account? <span style={{color:'blue' ,fontWeight:700}}>Log In </span></Link>
+
+            </div>
             </div>
         </div>
     </div>

@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux';
-import { loginSliceActions } from '../store/login-slice';
-import {authenticateUser} from '../api/login';
+import { loginSliceActions } from '../../store/login-slice';
+import {authenticateUser} from '../../api/authentication/login';
 import { useState } from 'react';
 import{FiAlertCircle} from 'react-icons/fi'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 
 const Login = () => {
+    const navigate = useNavigate();
     const inputEmail=useRef('');
     const inputPassword=useRef('');
     const dispatch=useDispatch();
@@ -27,6 +28,7 @@ const Login = () => {
                             idToken:data.idToken,
                             email:data.email
                         }));
+            navigate('/')
 
         }
         catch(e){
@@ -77,6 +79,11 @@ const Login = () => {
                         (<button style={{width:'100%',background:'black'}} className='btn btn-secondary btn-block disabled'>loading</button>):
                         (<button style={{width:'100%',background:'black'}} className='btn btn-secondary btn-block '>login</button>)}
             </form>
+            <div className='d-flex justify-content-center' style={{margin:'2rem 0  0 0'}}>
+            Don't have an account? &nbsp;
+                <Link to={'/signup'} className='link-secondary link-underline-opacity-0 '>  <span style={{color:'blue' ,fontWeight:700}}> Sign up here</span></Link>
+
+            </div>
 
         </div>
     </div>
