@@ -8,6 +8,8 @@ import Header from './components/header/Header';
 import About from'./components/about/About'
 import Shop from'./components/shop/Shop'
 import Contact from'./components/contact/Contact'
+import ProductDetail from './components/home/ProductPage';
+import Footer from './components/Footer/Footer';
 function App() {
   return (
    <BrowserRouter>
@@ -16,11 +18,13 @@ function App() {
     <Route path='/' element={<Home/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/shop' element={<Shop/>}/>
-    <Route path='/contact' element={<Contact/>}/>
+     <Route path='/contact' element={<Contact/>}/>
+     <Route path="/shop/:productType/:productName" element={<ProductDetail />} />
     <Route path={'/login'} element={<Login/>}/>
     <Route path={'/signup'} element={<SignUp/>}/>
     <Route path={'/passwordreset'} element={<ForgetPassword/>}/>
    </Routes>
+   <Footer/>
    </BrowserRouter>
   );
 }
