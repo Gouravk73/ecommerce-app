@@ -1,29 +1,41 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
 import './App.css';
-import Login from './components/authentication/Login';
-import SignUp from './components/authentication/SignUp';
-import ForgetPassword from './components/authentication/ForgetPassword';
-import Home from './components/home/Home';
 import Header from './components/header/Header';
-import About from'./components/about/About'
-import Shop from'./components/shop/Shop'
-import Contact from'./components/contact/Contact'
-import ProductDetail from './components/home/ProductPage';
+
 import Footer from './components/Footer/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { fetchWishlist } from './api/wishlist/fetchWishlist';
+import { WishlistSliceActions } from './store/Wishlist-slice';
+import AppRoutes from './AppRoutes';
+import { CartSliceActions } from './store/cart-slice';
+import { FetchCartItem } from './api/cart/fetchCartItem';
 function App() {
+  const isLoggedIn=useSelector((state)=>state.login.isLoggedIn)
+  const dispatch=useDispatch();
+  const wishItem = useSelector((state) => state.wishlist.wishlistItems);
+  const cartItem = useSelector((state) => state.cart.cartItems);
+  let email = useSelector((state) => state.login.userEmail);
+  const [firstTimeLoading,setFirstTimeLoading] = useState(true);
+  email = email.split(/[@.]/).join('');
+  useEffect(()=>{
+    if(isLoggedIn&&wishItem.length===0) {
+        fetchWishlist(email,dispatch,WishlistSliceActions) 
+    }
+  },[wishItem.length,email,dispatch,isLoggedIn]);
+
+  useEffect(()=>{
+    if(isLoggedIn&&cartItem.length===0&&firstTimeLoading) {
+      FetchCartItem(email,dispatch,CartSliceActions) 
+      setFirstTimeLoading(false);
+    }
+  },[cartItem.length,email,dispatch,firstTimeLoading,isLoggedIn]);
+
+
   return (
    <BrowserRouter>
    <Header/>
-   <Routes>
-    <Route path='/' element={<Home/>}/>
-    <Route path='/about' element={<About/>}/>
-    <Route path='/shop' element={<Shop/>}/>
-     <Route path='/contact' element={<Contact/>}/>
-     <Route path="/shop/:productType/:productName" element={<ProductDetail />} />
-    <Route path={'/login'} element={<Login/>}/>
-    <Route path={'/signup'} element={<SignUp/>}/>
-    <Route path={'/passwordreset'} element={<ForgetPassword/>}/>
-   </Routes>
+   <AppRoutes  isLoggedIn={isLoggedIn}/>
    <Footer/>
    </BrowserRouter>
   );

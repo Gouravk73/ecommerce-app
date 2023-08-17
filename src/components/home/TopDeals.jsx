@@ -16,7 +16,6 @@ const TopDeals = () => {
                             <div key={index} >
                                 <img src={imageItem.image}   alt="Bag" style={{   maxWidth: '90%' }}/>
                             </div>)}
-                            {console.log(item.id)}
                         <p>{item.name}</p>
                         <p>₹{item.price}</p>
                     </Link>

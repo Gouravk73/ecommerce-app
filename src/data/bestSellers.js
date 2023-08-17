@@ -1,12 +1,11 @@
 import safari from './backpacks/safari.jpg'
 import gear from './backpacks/gear.jpg'
-import mokobara from './Cabinbag/MOKOBARA.jpg'
 import wildcraft from './laptop/Wildcraft.jpg'
 
 
 const BestSellersList=[
     {
-        id: 'bestsellers1',
+        id: 'backpack2',
         name: "Safari  BACKPACK",
         image: [
             {
@@ -28,7 +27,7 @@ const BestSellersList=[
 
 
       {
-        id: 'bestsellers2',
+        id: 'backpack4',
         name: "Gear BACKPACK",
         image: [
             {
@@ -49,7 +48,7 @@ const BestSellersList=[
         rating: 5
       },
       {
-        id: 'bestsellers3',
+        id: 'lAPTOP3',
         name: "Wildcraft  LAPTOP BACKPACK",
         image: [
             {

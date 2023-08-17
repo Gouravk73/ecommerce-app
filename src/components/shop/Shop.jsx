@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LAPTOP from '../../data/laptop';
 import CabinBag from '../../data/CabinBag';
 import Duffle from '../../data/duffle';
 import Backpack from '../../data/backpack'
-import { Link } from 'react-router-dom';
+import SortBy from './SortBy';
+import Filter from './Filter';
+import ProductToDisplay from './ProductToDisplay';
+
 const Shop = () => {
   const product = [
     ...LAPTOP,
@@ -11,25 +14,40 @@ const Shop = () => {
     ...Duffle,
     ...Backpack,
   ];
+  const [productDisplay,setProductDisplay]=useState(product)
+  const handleSorting=(sortType)=>{
+    if(sortType==='low'){ 
+        const sorted=[...productDisplay].sort((a,b)=>a.price-b.price)
+        setProductDisplay(sorted);
+    }
+    else if(sortType==='high'){
+       const sorted= [...productDisplay].sort((a,b)=> b.price-a.price)
+       setProductDisplay(sorted);
+    }
+    else if(sortType==='rating'){
+      const sorted= [...productDisplay].sort((a,b)=> b.rating-a.rating)
+      setProductDisplay(sorted);
+    }
+  }
+  const handleFiltering=(filterType)=>{
+    if(filterType === 'duffle'){ setProductDisplay(Duffle)}
+    else if(filterType === 'laptop'){setProductDisplay(LAPTOP)}
+    else if(filterType === 'cabinBag'){setProductDisplay(CabinBag)}
+    else if(filterType === 'Backpack'){setProductDisplay(Backpack)}
+
+  }
+
   return (
     <div>
-      <div className='container d-flex justify-content-between py-5'  >
-        <div className="row" >
-            {product.map((item)=>
-                <div className="col-md-4 mb-4 text-center" key={item.id}  >
-                    <Link to={`/shop/${item.id.replace(/[0-9]/g,'')}/${encodeURIComponent(item.name)}`} style={{textDecoration:'none',color:'black'}}>
-                        {item.image.map((imageItem, index) => 
-                            index===0&&<div key={index}  style={{backgroundColor:'#F4F4F4',height:'300px'}}> 
-                                <img src={imageItem.image}   alt="Bag" style={{ objectFit:'contain',  maxWidth: '70%',height:'100%' }}/>
-                            </div>)}
-                        <p style={{backgroundColor:'#F4F4F4'}}>{item.name}</p>
-                        <p style={{backgroundColor:'#F4F4F4'}}>₹{item.price}</p>
-                        <button className='btn m-2 px-5 py-2' style={{ backgroundColor:'orange',color:'white'}}>ADD TO CART</button>
-
-                    </Link>
-                </div>
-             )}
+      <div className="container py-2">
+        <div className="row d-flex align-items-center justify-content-between ">
+          <SortBy sortChange={handleSorting}/>
+          <Filter filterChange={handleFiltering}/>
         </div>
+          <ProductToDisplay productDisplay={productDisplay}/>
+      </div>
+      <div className='container d-flex justify-content-between py-5'  >
+        
       </div>
     </div>
   )
