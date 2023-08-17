@@ -1,7 +1,7 @@
 import React from 'react';
 import BestSellersList from '../../data/bestSellers'
 import { Link } from 'react-router-dom';
-
+import { scrollToTop } from '../shop/ScrollToTop';
 const BestSellers = () => {
   return (
     <div className='text-center' >
@@ -12,7 +12,7 @@ const BestSellers = () => {
         <div className="row">
             {BestSellersList.map((item)=> 
                 <div className="col-md-4 mb-4 text-center" key={item.id}>
-                    <Link to={`/shop/${item.id.replace(/[0-9]/g,'')}/${item.name}`} style={{textDecoration:'none',color:'black'}}>
+                    <Link onClick={scrollToTop} to={`/shop/${item.id.replace(/[0-9]/g,'')}/${item.name}`} style={{textDecoration:'none',color:'black'}}>
                         {item.image.map((imageItem, index) => 
                             <div key={index} >
                                 <img src={imageItem.image}   alt="Bag" style={{   maxWidth: '90%' }}/>

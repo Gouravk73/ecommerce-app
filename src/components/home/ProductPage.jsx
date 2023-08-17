@@ -11,8 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { WishlistSliceActions } from '../../store/Wishlist-slice';
 import { WishlistDataPost } from '../../api/wishlist/wishlistPost';
 import { CartSliceActions } from '../../store/cart-slice';
-import { CartAddItemToApi } from '../../api/cart/cartAddItemToApi';
-
+ 
 
 const ProductDetailPage = () => {
   const dispatch=useDispatch();
@@ -20,8 +19,7 @@ const ProductDetailPage = () => {
   const { productType, productName } = useParams();
   let email= useSelector((state)=>state.login.userEmail);
   let wishItem= useSelector((state)=>state.wishlist.wishlistItems);
-  const cartItem=useSelector((state)=>state.cart.cartItems);
-  email=email.split('@').join('')
+   email=email.split('@').join('')
   email=email.split('.').join('')
   const products = [
     ...LAPTOP,

@@ -55,11 +55,14 @@ const Login = () => {
         setIsLoading(false);
     }
   return (
+        <>
+        <div className='container py-1 px-5' style={{border:'1px solid black',boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.5)'}}>
+            <span>Demo gmail password</span> <br />
+            <span>Gmail : abc@gmail.com</span><br />
+            <span>password : password</span>
+        </div>
         <div className="container d-flex flex-column justify-content-center  vh-100" style={{maxWidth:'500px'}} >
-            <div style={{border:'1px solid black',boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.5)'}}>
-                <p>Gmail : abc@gmail.com</p>
-                <p>Gmail : password</p>
-            </div>
+            
             <div style={{borderRadius:'1rem', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.5)',padding:'2rem '}}>
             <form action="" onSubmit={submitHandler}>
             <h6 >LOGIN TO YOUR ACCOUNT</h6>
@@ -91,6 +94,7 @@ const Login = () => {
 
         </div>
     </div>
+    </>
   )
 }
 

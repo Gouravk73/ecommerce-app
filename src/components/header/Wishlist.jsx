@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Offcanvas, Spinner } from 'react-bootstrap'
+import { Offcanvas } from 'react-bootstrap'
 import {AiOutlineHeart} from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { WishlistSliceActions } from '../../store/Wishlist-slice'
 import { WishlistDataPost } from '../../api/wishlist/wishlistPost'
+import { CartSliceActions } from '../../store/cart-slice'
 
 
 const Wishlist = () => {
@@ -15,6 +16,7 @@ const Wishlist = () => {
     const [show,setShow]=useState(false);
     const handleClose=()=> setShow(false);
     const handleOpen=()=> setShow(true);
+
     const WishlistDeleteHandler=async(item)=>{
       setLoading(true);
 
@@ -27,6 +29,11 @@ const Wishlist = () => {
       dispatch(WishlistSliceActions.setWishlistItems(data))
       setLoading(false);
 
+    }
+    const addToCartHandler=(item)=>{
+      setLoading(true);
+      dispatch(CartSliceActions.addToCart(item));
+      WishlistDeleteHandler(item)
     }
 
   return (
@@ -44,7 +51,10 @@ const Wishlist = () => {
                     <div className="row d-flex justify-content-between" style={{opacity:`${isLoading?0.2:1}` }  } key= {item.id}>
                       {<>
                         <div className="col">
-                          {item.image && item.image.map((img,index)=> (index===0&&<Link key={index}>
+                          {item.image && item.image.map((img,index)=> (index===0&&<Link
+                            key={index} 
+                            onClick={()=>handleClose()}
+                            to={`/shop/${item.id.replace(/[0-9]/g,'')}/${encodeURIComponent(item.name)}`}>
                               <img src={img.image} alt="wishlist" style={{maxWidth:'100%'}}/>
                             </Link>))}
                           </div>
@@ -53,7 +63,7 @@ const Wishlist = () => {
                         <p>₹ {item.price}</p>
                         <div className='row'>
                         <button  className='btn btn-danger my-2'onClick={()=>{WishlistDeleteHandler(item) }}>Remove from wishlist</button>
-                        <button  className='btn btn-success my-2'>ADD TO CART</button>
+                        <button  className='btn btn-success my-2' onClick={() => addToCartHandler(item)}>ADD TO CART</button>
 
                         </div>
                       </div>

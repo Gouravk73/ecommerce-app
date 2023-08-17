@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LAPTOP from '../../data/laptop';
 import CabinBag from '../../data/CabinBag';
 import Duffle from '../../data/duffle';
@@ -6,7 +6,8 @@ import Backpack from '../../data/backpack'
 import SortBy from './SortBy';
 import Filter from './Filter';
 import ProductToDisplay from './ProductToDisplay';
-
+import { scrollToTop } from './ScrollToTop';
+import {BsArrowUpCircleFill} from 'react-icons/bs'
 const Shop = () => {
   const product = [
     ...LAPTOP,
@@ -15,6 +16,8 @@ const Shop = () => {
     ...Backpack,
   ];
   const [productDisplay,setProductDisplay]=useState(product)
+  
+
   const handleSorting=(sortType)=>{
     if(sortType==='low'){ 
         const sorted=[...productDisplay].sort((a,b)=>a.price-b.price)
@@ -36,7 +39,6 @@ const Shop = () => {
     else if(filterType === 'Backpack'){setProductDisplay(Backpack)}
 
   }
-
   return (
     <div>
       <div className="container py-2">
@@ -49,6 +51,11 @@ const Shop = () => {
       <div className='container d-flex justify-content-between py-5'  >
         
       </div>
+      <button className="btn "  style={{position: 'fixed',bottom: '20px',right: '20px',display: 'block'}}
+          onClick={scrollToTop}
+        >
+           <BsArrowUpCircleFill size={'2rem'} style={{color:'orange'}}/>
+        </button>
     </div>
   )
 }

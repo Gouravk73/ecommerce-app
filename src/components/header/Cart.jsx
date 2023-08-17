@@ -60,7 +60,10 @@ const Cart = () => {
               {
                 cartItems.map((item)=><div className='row d-flex justify-content-between' style={{opacity:`${isLoading?0.2:1}`}} key={item.id}>
                   <div className="col">
-                          {item.image && item.image.map((img,index)=> (index===0&&<Link key={index}>
+                          {item.image && item.image.map((img,index)=> (index===0&&<Link 
+                              key={index} 
+                              onClick={()=>handleClose()}
+                              to={`/shop/${item.id.replace(/[0-9]/g,'')}/${encodeURIComponent(item.name)}`}>
                               <img src={img.image} alt="wishlist" style={{maxWidth:'100%'}}/>
                             </Link>))}
                     </div>
