@@ -8,13 +8,15 @@ const Header = () => {
   const HandleClose=()=>setShow(false);
   const HandleOpen=()=>setShow(true);
   return (
-    <Navbar bg="light" expand="md" style={{padding:'1rem 1rem 1rem 2rem' ,justifyContent:'space-between'}}>
-      <Link to="/" className="navbar-brand" style={{fontSize:'2rem',fontWeight:'900'}}>
-      BagStore
+    <Navbar bg="light" expand="md" style={{padding:'0 1rem 0 2rem' ,justifyContent:'space-between'}}>
+      <Link to="/" className="navbar-brand" style={{fontSize:'1.8rem',fontWeight:'800', transform:'rotate(-10deg)',textDecoration:'underline'}}>
+      <span>Bags</span>
+      <p>Store</p>
+      
       </Link>
       <div>
       <div className='d-flex px-2 ml-md-auto d-md-none'>
-        <Cart style={{padding:'0 4px 0 0'}}/>
+        <Cart />
        
         <button className='navbar-toggler' onClick={HandleOpen}>
           <span className='navbar-toggler-icon'></span>
